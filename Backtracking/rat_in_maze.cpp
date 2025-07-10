@@ -7,6 +7,7 @@ bool isSafe(int newx, int newy, vector<vector<bool>> &vis, vector<vector<int>> &
     if ((newx >= 0 && newx < n) && (newy >= 0 && newy < n) && vis[newx][newy] != 1 && arr[newx][newy] == 1)
     {
         return true;
+        
     }
     else
     {
