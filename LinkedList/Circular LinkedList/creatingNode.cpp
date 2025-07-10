@@ -11,7 +11,7 @@ class Node{
         this->next = NULL;
     }
 };
-
+    
 int main()
 {
     Node* node1 = new Node(10);
