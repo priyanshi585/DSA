@@ -1,7 +1,6 @@
 #include<iostream>
 using namespace std;
 
-
 bool binary_search(int arr,int start,int end,int element)
 {
     int mid = (start+end)/2 ;
