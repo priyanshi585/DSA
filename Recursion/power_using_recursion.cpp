@@ -12,7 +12,7 @@ int power(int a , int b)
     int ans = power(a,b/2);
     if(b%2==0){
         return ans*ans;
-    }
+    } 
     else{
         return a*ans*ans;
     }
