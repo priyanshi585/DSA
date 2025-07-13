@@ -10,7 +10,7 @@ void printReverseCounting(int n)
     printReverseCounting(n-1);
 }
 
-int main()
+int main() 
 {
     int n;
     cout<<"Enter value of n till where you want to print the counting: "<<endl;
