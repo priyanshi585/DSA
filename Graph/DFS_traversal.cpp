@@ -8,7 +8,7 @@ void dfs(int node, unordered_map<int, bool> &visited, unordered_map<int, list<in
 {
     component.push_back(node);
     visited[node] = true;
-
+ 
     for (auto i : adj[node])
     {
         if (!visited[i])
