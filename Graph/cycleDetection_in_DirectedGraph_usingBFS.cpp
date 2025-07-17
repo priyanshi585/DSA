@@ -11,7 +11,7 @@ int cycleDetectionInDirectedGraph( int n , vector<vector<int>> &edges )
     for(int i = 0;i<edges.size();i++)
     {
         int u = edges[i][0];
-        int v = edges[i][1];
+        int v = edges[i][1]; 
         adj[u].push_back(v);
     }
 
