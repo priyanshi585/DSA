@@ -8,7 +8,7 @@ class Node{
 
    Node(int data){
       this->data = data;
-      this->next = NULL;
+      this->next = NULL; 
    }
 };
 
