@@ -11,7 +11,7 @@ void sortArray(int arr[] , int n)
         if(arr[i]>arr[i+1]){
             swap(arr[i],arr[i+1]);
         }
-    }
+    } 
     sortArray(arr,n-1);
 }
 
