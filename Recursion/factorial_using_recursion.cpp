@@ -6,7 +6,7 @@ int factorial(int n){
         return 1;
     }
     
-    int fac = n*factorial(n-1);
+    int fac = n*factorial(n-1); 
     return fac;
 }
 
