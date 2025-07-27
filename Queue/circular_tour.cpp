@@ -2,6 +2,7 @@
 #include<queue>
 using namespace std;
 
+
 int circularTour(int p[] , int d[] , int n){
     int deficit = 0;
     int balance = 0;
