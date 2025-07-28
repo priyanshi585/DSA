@@ -2,7 +2,7 @@
 #include<vector>
 using namespace std;
 
-int solve(vector<int> &cost  , int n)
+int solve(vector<int> &cost  , int n) 
 {
     int prev1 = cost[1] ;
     int prev2 = cost[0] ;
