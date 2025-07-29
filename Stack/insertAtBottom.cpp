@@ -7,7 +7,7 @@ void solve(stack<int>&s , int elem)
     //base case:
     if(s.empty()){
         s.push(elem);
-        return ;
+        return ;  
     }
 
     int num = s.top();
