@@ -5,7 +5,7 @@ using namespace std;
 
 class CircularQueue
 {
-    int *arr;
+    int *arr;  
     int size;
     int front;
     int rear;
