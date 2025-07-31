@@ -12,7 +12,7 @@ vector<long long> printFirstNegativeInt(long long int A[], long long int N, long
     {
         if (A[i] < 0)
         {
-            dq.push_back(i);
+            dq.push_back(i);  
         }
     }
 
