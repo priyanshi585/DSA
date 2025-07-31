@@ -4,7 +4,7 @@
 using namespace std;
 
 string firstNonRepeating(string A)
-{
+{  
     map<char, int> count;
     string ans = "";
     queue<int> q;
