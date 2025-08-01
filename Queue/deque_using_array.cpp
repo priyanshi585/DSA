@@ -6,7 +6,7 @@ class Deque
     int *arr;
     int size;
     int front;
-    int rear;
+    int rear;  
 
 public:
     Deque(int n)
