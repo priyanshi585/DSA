@@ -11,7 +11,7 @@ int main()
     d.push_back(19);
     d.push_front(15);
     d.push_back(17);
-
+  
     cout<<"Element at front: "<<d.front()<<endl;
     cout<<"Element at back: "<<d.back()<<endl;
 
