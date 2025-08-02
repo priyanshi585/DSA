@@ -8,7 +8,7 @@ void solve(stack<int>&inputStack , int count , int size){
         inputStack.pop() ;
         return ;  
     }
-
+ 
     int num = inputStack.top() ;
     inputStack.pop() ;
 
