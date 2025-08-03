@@ -4,7 +4,7 @@ using namespace std;
 void printCounting(int n)
 {
     if(n==0){
-        return;
+        return;  
     }
 
     printCounting(n-1);
