@@ -11,7 +11,7 @@ class graph
     void addEdge(int u , int v , bool direction)
     {
         adj[u].push_back(v);
-        if(direction==0){
+        if(direction==0){  
             adj[v].push_back(u);
         }
     }
