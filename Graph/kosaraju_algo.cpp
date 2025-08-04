@@ -15,7 +15,7 @@ void dfs(int node , unordered_map<int , bool> &vis , stack<int> &st , unordered_
     }
   }
 
-  st.push(node) ;
+  st.push(node) ;  
 }
 
 void revDfs(int node, unordered_map<int , bool> &vis, unordered_map<int , list<int>> &adj)
