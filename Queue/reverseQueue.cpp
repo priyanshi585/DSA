@@ -11,7 +11,7 @@ queue<int> reverseQueue(queue<int> &q)
         int element = q.front();
         q.pop();
         s.push(element);
-    }
+    }  
 
     while (!s.empty())
     {
