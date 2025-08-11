@@ -5,7 +5,7 @@ class Queue
 {
     int *arr;
     int front;
-    int rear;
+    int rear;  
     int size;
 
 public:
