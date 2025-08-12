@@ -9,7 +9,7 @@ void insertAtBottom(stack<int>&s , int elem)
         s.push(elem);
         return ;
     }
-
+  
     int num = s.top();
     s.pop();
 
