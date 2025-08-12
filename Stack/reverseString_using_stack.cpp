@@ -14,7 +14,7 @@ int main()
     char ch = str[i];
     s.push(ch) ;
    }
-
+   
    string ans = "" ;
 
    while(!s.empty()){
