@@ -9,7 +9,7 @@ bool findRedundantBrackets(string &str){
         
         if(ch == '(' || ch == '+' || ch == '-' || ch == '*' || ch == '/'){
             s.push(ch);
-        }
+        }  
         else{
             if(ch == ')' ){
               bool isRedundant = true;
