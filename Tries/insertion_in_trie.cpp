@@ -3,7 +3,7 @@ using namespace std;
 
 class TrieNode
 {
-    public:
+    public:  
     char data;
     TrieNode* children[26];
     bool isTerminal;
