@@ -5,7 +5,7 @@ using namespace std;
 class TrieNode
 {
     public:
-    char data;
+    char data;  
     TrieNode* children[26];
     bool isTerminal;
 
