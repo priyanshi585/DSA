@@ -5,7 +5,7 @@ class TrieNode
 {
     public:
     char data;
-    TrieNode* children[26];
+    TrieNode* children[26];  
     bool isTerminal;
 
     TrieNode(char ch){
