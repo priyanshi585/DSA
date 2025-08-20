@@ -8,7 +8,7 @@ int bellmanFord(int n , int m , int src, int dest,  vector<vector<int>> &edges)
 {
     vector<int> dist(n+1 , 1e9);
     dist[src] = 0;
-
+  
     for(int i = 1 ;i<=n ;i++){
         for(int j = 0 ;j <m ;j++){
             int u = edges[j][0];
