@@ -1,6 +1,6 @@
 #include<iostream>
 #include<vector>
-using namespace std;
+using namespace std; 
 
 void addSolution(vector<vector<int>> &ans , vector<vector<int>> &board , int n){
     vector<int> temp ;
