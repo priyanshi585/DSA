@@ -15,7 +15,7 @@ queue<int> interleaveTwoHalves(queue<int> q , int n)
 
     while(!s.empty()) {
         q.push(s.top());
-        s.pop();
+        s.pop();  
     }
 
     for(int i = 0 ; i<n/2 ;i++){
