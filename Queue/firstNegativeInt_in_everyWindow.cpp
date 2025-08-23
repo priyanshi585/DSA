@@ -7,7 +7,7 @@ vector<long long> printFirstNegativeInt(long long int A[], long long int N, long
     deque<long long int> dq;
     vector<long long> ans;
 
-    // process 1st window of k size:
+    // process 1st window of k size:  
     for (int i = 0; i < K; i++)
     {
         if (A[i] < 0)
