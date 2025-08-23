@@ -14,7 +14,7 @@ string firstNonRepeating(string A)
         char ch = A[i];
 
         count[ch]++;
-
+ 
         q.push(ch);
 
         while (!q.empty())
