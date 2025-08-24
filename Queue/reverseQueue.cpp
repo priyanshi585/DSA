@@ -12,7 +12,7 @@ queue<int> reverseQueue(queue<int> &q)
         q.pop();
         s.push(element);  
     }  
-
+  
     while (!s.empty())
     {
         int element = s.top();
