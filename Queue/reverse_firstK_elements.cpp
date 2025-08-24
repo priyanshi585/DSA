@@ -13,7 +13,7 @@ queue<int> modifyQueue(queue<int> &q , int k)
         s.push(val);
     }
 
-    while(!s.empty()){
+    while(!s.empty()){  
         int val = s.top();
         s.pop();
         q.push(val);
