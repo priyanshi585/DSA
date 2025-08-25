@@ -1,7 +1,7 @@
 #include<iostream>
 #include<unordered_map>
 #include<vector>
-#include<list>
+#include<list>  
 using namespace std;
 
 int min(int a , int b)
