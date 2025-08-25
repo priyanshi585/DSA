@@ -2,7 +2,7 @@
 #include <vector>
 #include <list>
 #include <unordered_map>
-using namespace std;
+using namespace std; 
 
 void dfs(int node, unordered_map<int, bool> &visited, unordered_map<int, list<int>> &adj, vector<int> &component)
 {
