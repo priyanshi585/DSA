@@ -11,7 +11,7 @@ vector<pair<pair<int , int> , int>> calculatePrimsMST(int n, int m ,vector<pair<
     for(int i = 0;i<g.size();i++){
         int u = g[i].first.first;
         int v =g[i].first.second ;
-        int w = g[i].second ;
+        int w = g[i].second ;  
 
         adj[u].push_back(make_pair(v,w));
         adj[v].push_back(make_pair(u,w));
