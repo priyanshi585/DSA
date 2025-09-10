@@ -10,7 +10,7 @@ int findMinimumCost(string &str){
     }
 
     stack<char> s;  
-    for(int i=0;i<str.length() ; i++){
+    for(int i=0;i<str.length() ; i++){  
         char ch = str[i] ;
         if(ch == '{' ){
           s.push(ch);
