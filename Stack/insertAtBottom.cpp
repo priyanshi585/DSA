@@ -11,7 +11,7 @@ void solve(stack<int>&s , int elem)
     }
 
     int num = s.top();  
-    s.pop();
+    s.pop();   
 
     //recursive call:
     solve(s,elem);
