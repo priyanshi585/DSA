@@ -12,7 +12,7 @@ void dfs(int node, unordered_map<int, bool> &visited, unordered_map<int, list<in
     for (auto i : adj[node])
     {
         if (!visited[i])
-        {
+        {  
             dfs(i, visited, adj, component);
         }
     }
