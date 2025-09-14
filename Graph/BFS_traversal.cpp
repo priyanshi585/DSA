@@ -12,7 +12,7 @@ void prepareAdjList(unordered_map<int , list<int>> &adjList , vector<pair<int, i
         int v = edges[i].second;
 
         adjList[u].push_back(v);
-        adjList[v].push_back(u);
+        adjList[v].push_back(u);  
     }
 }
 
