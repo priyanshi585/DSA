@@ -13,7 +13,7 @@ void dfs(int node , int parent , int &timer , vector<int> &disc , vector<int> &l
     for(auto nbr : adj[node] ){
         if(nbr == parent){ 
             continue;
-        }
+        }  
 
         if(!vis[nbr]){
             dfs(nbr , node , timer , disc, low , result , adj , vis);
