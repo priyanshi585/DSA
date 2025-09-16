@@ -11,7 +11,7 @@ int circularTour(int p[] , int d[] , int n){
     for(int i = 0 ;i<n;i++){
         balance = balance + p[i] - d[i] ;
   
-        if(balance<0){
+        if(balance<0){   
             deficit = deficit + balance ;
             start = i+1;
             balance = 0;
