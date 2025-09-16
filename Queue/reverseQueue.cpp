@@ -3,7 +3,7 @@
 #include <stack>
 using namespace std;
 
-queue<int> reverseQueue(queue<int> &q)
+queue<int> reverseQueue(queue<int> &q)   
 {
     stack<int> s;
     while (!q.empty())
