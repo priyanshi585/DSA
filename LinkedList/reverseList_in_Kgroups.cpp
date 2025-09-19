@@ -10,7 +10,7 @@ class Node{
        this->data = data;
        this->next = NULL;
     }
- };
+ };  
  
  void insertAtHead(Node* &head , int d)
  {
