@@ -11,7 +11,7 @@ void dfs(int node , int parent , int &timer , vector<int> &disc , vector<int> &l
     disc[node] =low[node]= timer++ ;
     
     for(auto nbr : adj[node] ){
-        if(nbr == parent){ 
+        if(nbr == parent){   
             continue;
         }  
 
