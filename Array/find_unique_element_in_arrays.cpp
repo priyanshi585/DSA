@@ -12,7 +12,7 @@ void inputArray(int arr[], int size)
 
 void printArray(int arr[] , int size)
 {
-    cout<<"Array elements: "<<endl;
+    cout<<"Array elements: "<<endl;  
     for(int i=0;i<size;i++)
     {
        cout<<arr[i]<<" ";
@@ -44,6 +44,7 @@ int main()
     int uniqueElement = findUnique(arr,size) ;
     cout<<"Unique Element is: "<<uniqueElement<<endl;
     return 0;
+
 
 
 }
