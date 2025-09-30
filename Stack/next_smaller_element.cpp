@@ -13,7 +13,7 @@ vector<int> nextSmallerElement(vector<int> &arr , int n){
         int curr = arr[i] ;
         while(s.top()>=curr){
             s.pop();
-        }
+        }  
 
         ans[i] = s.top();
         s.push(curr);
