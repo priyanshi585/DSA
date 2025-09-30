@@ -12,7 +12,7 @@ bool findRedundantBrackets(string &str){
         }  
         else{
             if(ch == ')' ){
-              bool isRedundant = true;
+              bool isRedundant = true;  
               while(s.top() != '(' ){
                 char top = s.top();
 
