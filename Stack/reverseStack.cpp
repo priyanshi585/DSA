@@ -10,7 +10,7 @@ void insertAtBottom(stack<int>&s , int elem)
         return ;
     }
   
-    int num = s.top();
+    int num = s.top();  
     s.pop();
 
     //recursive call:
