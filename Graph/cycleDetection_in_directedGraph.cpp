@@ -9,7 +9,7 @@ bool checkCycleDFS(int node , unordered_map<int , bool> &visited , unordered_map
 {
     visited[node] = true;
     dfsVisited[node] = true;
-
+  
     for(auto neighbour : adj[node]){
         if(!visited[neighbour]){
             bool cycleDetected = checkCycleDFS(neighbour , visited , dfsVisited , adj);
