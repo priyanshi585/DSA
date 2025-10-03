@@ -11,7 +11,7 @@ vector<vector<int>> printAdjacency(int n, int m, vector<vector<int>> &edges)
         int v = edges[i][1]; 
         ans[u].push_back(v);
         ans[v].push_back(u);
-    }
+    }  
 
     vector<vector<int>> adj(n);
     for (int i = 0; i < n; i++)
