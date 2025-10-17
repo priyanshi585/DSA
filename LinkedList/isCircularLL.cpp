@@ -12,7 +12,7 @@ class Node{
     }
 };
 
-void insertNode(Node* &tail , int element , int d)
+void insertNode(Node* &tail , int element , int d)  
 { 
     if(tail==NULL){
         Node* temp = new Node(d);
