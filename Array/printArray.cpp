@@ -9,7 +9,7 @@ void inputArray(int arr[], int size)
         cin>>arr[i];
     }
 }
-
+ 
 void printArray(int arr[] , int size)
 {
     cout<<"Array elements: "<<endl;
@@ -30,6 +30,7 @@ int main()
     inputArray(arr,size) ;
     printArray(arr,size);
     return 0;
+
 
 
 }
