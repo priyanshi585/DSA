@@ -10,7 +10,7 @@ void inputArray(int arr[], int size)
     }
     cout<<endl;
 }
-
+  
 void printArray(int arr[] , int size)
 {
     cout<<"Array elements: "<<endl;
@@ -43,6 +43,7 @@ int main()
     printArray(arr,size);
     printReverse(arr,size) ;
     return 0;
+
 
 
 }
