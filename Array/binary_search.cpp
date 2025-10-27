@@ -12,7 +12,7 @@ void inputArray(int arr[], int size)
 }
 
 void printArray(int arr[] , int size)
-{
+{  
     cout<<"Array elements: "<<endl;
     for(int i=0;i<size;i++)
     {
@@ -71,4 +71,5 @@ int main()
 
 
 }
+
 
