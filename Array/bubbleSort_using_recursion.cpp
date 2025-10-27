@@ -12,7 +12,7 @@ void sortArray(int arr[] , int n)
             swap(arr[i],arr[i+1]);
         }
     }
-    sortArray(arr,n-1);  
+    sortArray(arr,n-1);    
 }
 
 int main()
@@ -26,3 +26,4 @@ int main()
     return 0;
 
 }
+
