@@ -1,0 +1,152 @@
+Question:
+You are given a 2D integer array squares. Each squares[i] = [xi, yi, li] represents the coordinates of the bottom-left point and the side length of a square parallel to the x-axis.
+
+Find the minimum y-coordinate value of a horizontal line such that the total area covered by squares above the line equals the total area covered by squares below the line.
+
+Answers within 10-5 of the actual answer will be accepted.
+
+Note: Squares may overlap. Overlapping areas should be counted only once in this version.
+
+Example 1:
+Input: squares = [[0,0,1],[2,2,1]]
+Output: 1.00000
+Explanation:
+Any horizontal line between y = 1 and y = 2 results in an equal split, with 1 square unit above and 1 square unit below. The minimum y-value is 1.
+
+Example 2:
+Input: squares = [[0,0,2],[1,1,1]]
+Output: 1.00000
+Explanation:
+Since the blue square overlaps with the red square, it will not be counted again. Thus, the line y = 1 splits the squares into two equal parts.
+
+ 
+
+Constraints:
+1 <= squares.length <= 5 * 104
+squares[i] = [xi, yi, li]
+squares[i].length == 3
+0 <= xi, yi <= 109
+1 <= li <= 109
+The total area of all the squares will not exceed 1015.
+
+Code:
+class Solution {
+public:
+    struct Event {
+        long long y;
+        int x1, x2;
+        int type;
+    };
+
+    struct SegTree {
+        int n;
+        vector<long long> cover, len;
+        vector<long long>& xs;
+
+        SegTree(int n, vector<long long>& xs) : n(n), xs(xs) {
+            cover.assign(4 * n, 0);
+            len.assign(4 * n, 0);
+        }
+
+        void pull(int node, int l, int r) {
+            if (cover[node] > 0) {
+                len[node] = xs[r + 1] - xs[l];
+            } else if (l == r) {
+                len[node] = 0;
+            } else {
+                len[node] = len[node * 2] + len[node * 2 + 1];
+            }
+        }
+
+        void update(int node, int l, int r, int ql, int qr, int val) {
+            if (ql > r || qr < l) return;
+            if (ql <= l && r <= qr) {
+                cover[node] += val;
+                pull(node, l, r);
+                return;
+            }
+            int mid = (l + r) / 2;
+            update(node * 2, l, mid, ql, qr, val);
+            update(node * 2 + 1, mid + 1, r, ql, qr, val);
+            pull(node, l, r);
+        }
+
+        long long query() {
+            return len[1];
+        }
+    };
+
+    double separateSquares(vector<vector<int>>& squares) {
+        vector<Event> events;
+        vector<long long> xs;
+
+        for (auto& s : squares) {
+            long long x = s[0], y = s[1], l = s[2];
+            xs.push_back(x);
+            xs.push_back(x + l);
+        }
+
+        sort(xs.begin(), xs.end());
+        xs.erase(unique(xs.begin(), xs.end()), xs.end());
+
+        for (auto& s : squares) {
+            long long x = s[0], y = s[1], l = s[2];
+            int x1 = lower_bound(xs.begin(), xs.end(), x) - xs.begin();
+            int x2 = lower_bound(xs.begin(), xs.end(), x + l) - xs.begin() - 1;
+            events.push_back({y, x1, x2, +1});
+            events.push_back({y + l, x1, x2, -1});
+        }
+
+        sort(events.begin(), events.end(),
+             [](auto& a, auto& b) { return a.y < b.y; });
+
+        // ---------- PASS 1: total union area ----------
+        SegTree st1(xs.size() - 1, xs);
+        long double totalArea = 0;
+        long long prevY = events[0].y;
+
+        for (int i = 0; i < events.size(); i++) {
+            long long y = events[i].y;
+            long long dy = y - prevY;
+            totalArea += st1.query() * dy;
+
+            while (i < events.size() && events[i].y == y) {
+                st1.update(1, 0, xs.size() - 2,
+                           events[i].x1, events[i].x2, events[i].type);
+                i++;
+            }
+            i--;
+            prevY = y;
+        }
+
+        long double half = totalArea / 2.0;
+
+        // ---------- PASS 2: find minimum y ----------
+        SegTree st2(xs.size() - 1, xs);
+        long double currArea = 0;
+        prevY = events[0].y;
+
+        for (int i = 0; i < events.size(); i++) {
+            long long y = events[i].y;
+            long long dy = y - prevY;
+            long long width = st2.query();
+
+            if (width > 0 && currArea + width * dy >= half) {
+                long double need = half - currArea;
+                return (double)(prevY + need / width);
+            }
+
+            currArea += width * dy;
+
+            while (i < events.size() && events[i].y == y) {
+                st2.update(1, 0, xs.size() - 2,
+                           events[i].x1, events[i].x2, events[i].type);
+                i++;
+            }
+            i--;
+            prevY = y;
+        }
+
+        return 0.0;
+    }
+};
