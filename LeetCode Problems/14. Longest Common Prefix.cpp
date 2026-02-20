@@ -18,3 +18,6 @@ public:
         return ans;
     }
 };
+
+TC- O(N*N)
+SC - O(1)
