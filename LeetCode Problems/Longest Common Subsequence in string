@@ -1,0 +1,131 @@
+Question:
+Given two strings str1 and str2, find the length of their longest common subsequence.
+A subsequence is a sequence that appears in the same relative order but not necessarily contiguous and a common subsequence of two strings is a subsequence that is common to both strings.
+
+
+Example 1
+Input: str1 = "bdefg", str2 = "bfg"
+Output: 3
+Explanation: The longest common subsequence is "bfg", which has a length of 3.
+
+Example 2
+Input: str1 = "mnop", str2 = "mnq"
+Output: 2
+Explanation: The longest common subsequence is "mn", which has a length of 2.
+
+
+Constraints
+n=str1.length
+m=str2.length
+1<= n, m <=103
+str1 and str2 are in lowercase alphabet
+
+
+Code:
+I) Recursive Solution:
+class Solution {
+public:
+    int longest(int i1 , int i2, string &str1 , string &str2){
+        if(i1 < 0 || i2 < 0){
+            return 0;
+        }
+
+        if(str1[i1] == str2[i2]){
+            return 1 + longest(i1-1, i2-1, str1, str2);
+        }
+
+        return max(longest(i1-1, i2, str1, str2),
+                   longest(i1, i2-1, str1, str2));
+    }
+
+    int lcs(string str1, string str2) {
+        int n1 = str1.length();
+        int n2 = str2.length();
+        return longest(n1-1 , n2-1, str1, str2);
+    }
+};
+
+TC - O(2^(n+m))
+SC - O(stack space)
+
+
+II) DP Based Memoized Solution:
+class Solution {
+  public:
+    int longest(int i1 , int i2, string &str1 , string &str2, vector<vector<int>> &dp){
+        if(i1<0 || i2<0){
+            return 0;
+        }
+        if(dp[i1][i2]!=-1) return dp[i1][i2];
+        if(str1[i1] == str2[i2]){
+           return dp[i1][i2] =  1 + longest(i1-1, i2-1, str1, str2, dp);
+        }
+        return dp[i1][i2] = max(longest(i1-1, i2, str1, str2, dp), longest(i1, i2-1, str1, str2, dp));
+    }
+
+    int lcs(string str1, string str2) {
+        int n1 = str1.length();
+        int n2 = str2.length();
+        vector<vector<int>> dp(n1, vector<int>(n2, -1));
+        return longest(n1-1 , n2-1, str1, str2, dp);
+    }
+};
+
+TC - O(n1 * n2)
+SC - O(n1 * n2) + recursion stack
+
+
+III) DP Based Tabulation Method:
+class Solution {
+  public:
+    int lcs(string str1, string str2) {
+        int n1 = str1.length();
+        int n2 = str2.length();
+        vector<vector<int>> dp(n1+1, vector<int>(n2+1, 0));
+        for(int i = 0; i<n1+1; i++) dp[i][0] = 0;
+        for(int j = 0; j<n2+1; j++) dp[0][j] = 0;
+
+        for(int i = 1; i<n1+1; i++){
+            for(int j = 1; j<n2+1; j++){
+                if(str1[i-1] == str2[j-1]){
+                    dp[i][j] =  1 + dp[i-1][j-1];
+                }else{
+                    dp[i][j] = max(dp[i-1][j] , dp[i][j-1]);
+                }
+            }
+        }
+
+        return dp[n1][n2] ;
+    }
+};
+
+TC - O(n1 * n2)
+SC - O(n1 * n2)
+
+
+IV) Space Optimized Approach:
+class Solution {
+  public:
+    int lcs(string str1, string str2) {
+        int n1 = str1.length();
+        int n2 = str2.length();
+        vector<int> prev(n2+1, 0) , curr(n2+1, 0);
+        for(int i = 0; i<n1+1; i++) prev[0] = 0;
+
+        for(int i = 1; i<n1+1; i++){
+            for(int j = 1; j<n2+1; j++){
+                if(str1[i-1] == str2[j-1]){
+                    curr[j] =  1 + prev[j-1];
+                }else{
+                    curr[j] = max(prev[j] , curr[j-1]);
+                }
+            }
+            prev = curr;
+        }
+
+        return prev[n2] ;
+    }
+};
+
+TC - O(n1 * n2)
+SC - O(n2)
