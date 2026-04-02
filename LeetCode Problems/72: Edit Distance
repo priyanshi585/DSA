@@ -1,0 +1,147 @@
+Question:
+Given two strings word1 and word2, return the minimum number of operations required to convert word1 to word2.
+
+You have the following three operations permitted on a word:
+
+Insert a character
+Delete a character
+Replace a character
+ 
+
+Example 1:
+
+Input: word1 = "horse", word2 = "ros"
+Output: 3
+Explanation: 
+horse -> rorse (replace 'h' with 'r')
+rorse -> rose (remove 'r')
+rose -> ros (remove 'e')
+
+
+Example 2:
+Input: word1 = "intention", word2 = "execution"
+Output: 5
+Explanation: 
+intention -> inention (remove 't')
+inention -> enention (replace 'i' with 'e')
+enention -> exention (replace 'n' with 'x')
+exention -> exection (replace 'n' with 'c')
+exection -> execution (insert 'u')
+ 
+
+Constraints:
+0 <= word1.length, word2.length <= 500
+word1 and word2 consist of lowercase English letters.
+
+
+Code:
+I) Recursive Solution:
+class Solution {
+public:
+    int distance(int i , int j, string &word1, string &word2){
+        if(i<0) return j+1 ;
+        if(j<0) return i+1;
+        if(word1[i] == word2[j]) return distance(i-1, j-1, word1, word2);
+        int insert = 1 + distance(i, j-1, word1, word2);
+        int del = 1 + distance(i-1, j, word1 , word2);
+        int replace = 1 + distance(i-1, j-1, word1, word2);
+        return min(insert , min(del, replace));
+    }
+    int minDistance(string word1, string word2) {
+        int n1 = word1.length();
+        int n2 = word2.length();
+        return distance(n1-1 , n2-1, word1, word2);
+    }
+};
+
+TC - O(exponential)  //TLE occurs 
+SC - O(N+M) // recusrive stack space 
+
+
+II) DP Based Memoized Solution:
+class Solution {
+public:
+    int distance(int i , int j, string &word1, string &word2, vector<vector<int>> &dp){
+        if(i<0) return j+1 ;
+        if(j<0) return i+1;
+        if(dp[i][j] != -1) return dp[i][j];
+        if(word1[i] == word2[j]) return dp[i][j]= distance(i-1, j-1, word1, word2, dp);
+        int insert = 1 + distance(i, j-1, word1, word2, dp);
+        int del = 1 + distance(i-1, j, word1 , word2, dp);
+        int replace = 1 + distance(i-1, j-1, word1, word2, dp);
+        return dp[i][j] = min(insert , min(del, replace));
+    }
+    int minDistance(string word1, string word2) {
+        int n1 = word1.length();
+        int n2 = word2.length();
+        vector<vector<int>> dp(n1, vector<int>(n2, -1));
+        return distance(n1-1 , n2-1, word1, word2 ,dp);
+    }
+};
+
+TC - O(N*M)
+SC - O(N*M) + O(N+M)
+
+
+III) DP Based Tabulation Solution:
+class Solution {
+public:
+    int minDistance(string word1, string word2) {
+        int n1 = word1.length();
+        int n2 = word2.length();
+        vector<vector<int>> dp(n1 + 1, vector<int>(n2 + 1, 0));
+
+        for(int i = 0 ; i<=n1; i++) dp[i][0] = i ;
+        for(int j = 0 ; j<=n2; j++) dp[0][j] = j ;
+
+        for (int i = 1; i <= n1; i++) {
+            for (int j = 1; j <= n2; j++) {
+                if (word1[i-1] == word2[j-1])
+                    dp[i][j] = dp[i - 1][j - 1];
+                else {
+                    int insert = 1 + dp[i][j - 1];
+                    int del = 1 + dp[i - 1][j];
+                    int replace = 1 + dp[i - 1][j - 1];
+                    dp[i][j] = min(insert, min(del, replace));
+                }
+            }
+        }
+        return dp[n1][n2];
+    }
+};
+
+TC - O(N*M)
+SC - O(N*M)
+
+
+IV) Space Optimized Solution:
+class Solution {
+public:
+    int minDistance(string word1, string word2) {
+        int n1 = word1.length();
+        int n2 = word2.length();
+        vector<int> prev(n2+1, 0) , curr(n2+1 , 0);
+
+        for(int i = 0 ; i<=n1; i++) curr[0] = i ;
+        for(int j = 0 ; j<=n2; j++) prev[j] = j ;
+
+        for (int i = 1; i <= n1; i++) {
+            curr[0] = i;
+            for (int j = 1; j <= n2; j++) {
+                if (word1[i-1] == word2[j-1])
+                    curr[j] = prev[j - 1];
+                else {
+                    int insert = 1 + curr[j - 1];
+                    int del = 1 + prev[j];
+                    int replace = 1 + prev[j - 1];
+                    curr[j] = min(insert, min(del, replace));
+                }
+            }
+            prev = curr;
+        }
+        return prev[n2];
+    }
+};
+
+TC - O(N*M)
+SC - O(m) or O(min(m,n))
