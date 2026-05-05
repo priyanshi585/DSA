@@ -1,0 +1,162 @@
+Question:
+Given an integer array nums, return true if you can partition the array into two subsets such that the sum of the elements in both subsets is equal or false otherwise.
+
+
+Example 1:
+Input: nums = [1,5,11,5]
+Output: true
+Explanation: The array can be partitioned as [1, 5, 5] and [11].
+
+
+Example 2:
+Input: nums = [1,2,3,5]
+Output: false
+Explanation: The array cannot be partitioned into equal sum subsets.
+ 
+
+Constraints:
+1 <= nums.length <= 200
+1 <= nums[i] <= 100
+ 
+
+Code:
+I) Recursive Solution:
+class Solution {
+public:
+    bool isSubset(int i , int target , vector<int> &nums){
+        if(i==0){
+            if(nums[i] == target) return true;
+            else return false;
+        }
+        
+        bool notPick = isSubset(i-1 , target , nums);
+        bool pick = false;
+        if(nums[i] <= target) pick = isSubset(i-1 , target-nums[i] , nums);
+
+        return pick | notPick;
+    }
+
+    bool canPartition(vector<int>& nums) {
+        int n = nums.size();
+        int totalSum = 0 ;
+        for(int i = 0; i<n ; i++){
+            totalSum += nums[i];
+        }
+
+        if(totalSum % 2 != 0) return false;
+
+        int target = totalSum/2;
+
+        return isSubset(n-1 , target , nums);
+
+    }
+};
+
+
+II) Memoization Solution:
+class Solution {
+public:
+    bool isSubset(int i , int target , vector<int> &nums, vector<vector<int>> &dp){
+        if(i==0){
+            if(nums[i] == target) return true;
+            else return false;
+        }
+
+        if(dp[i][target] != -1) return dp[i][target];
+        
+        bool notPick = isSubset(i-1 , target , nums, dp);
+        bool pick = false;
+        if(nums[i] <= target) pick = isSubset(i-1 , target-nums[i] , nums, dp);
+
+        return dp[i][target] = pick | notPick;
+    }
+
+    bool canPartition(vector<int>& nums) {
+        int n = nums.size();
+        int totalSum = 0 ;
+        for(int i = 0; i<n ; i++){
+            totalSum += nums[i];
+        }
+
+        if(totalSum % 2 != 0) return false;
+
+        int target = totalSum/2;
+        vector<vector<int>> dp(n, vector<int>(target+1 , -1));
+
+        return isSubset(n-1 , target , nums, dp);
+
+    }
+};
+
+
+III) Tabulation Solution:
+class Solution {
+public:
+
+    bool canPartition(vector<int>& nums) {
+        int n = nums.size();
+        int totalSum = 0 ;
+        for(int i = 0; i<n ; i++){
+            totalSum += nums[i];
+        }
+
+        if(totalSum % 2 != 0) return false;
+
+        int target = totalSum/2;
+        vector<vector<int>> dp(n, vector<int>(target+1 , 0));
+
+        for(int i = 0 ; i<n ; i++) dp[i][0] = true;
+        
+        if(nums[0] <= target) dp[0][nums[0]] = true;
+
+        for(int i = 1; i<n ; i++){
+            for(int j = 1 ; j<=target ; j++){
+                bool notPick = dp[i-1][j];
+                bool pick = false;
+                if(nums[i] <= j) pick = dp[i-1][j-nums[i]];
+
+                dp[i][j] = pick | notPick;
+            }
+        }
+        
+        return dp[n-1][target];
+    }
+};
+
+
+IV) Space Optimized Solution:
+class Solution {
+public:
+
+    bool canPartition(vector<int>& nums) {
+        int n = nums.size();
+        int totalSum = 0 ;
+        for(int i = 0; i<n ; i++){
+            totalSum += nums[i];
+        }
+
+        if(totalSum % 2 != 0) return false;
+
+        int target = totalSum/2;
+        
+        vector<int> prev(target+1 , 0);
+        vector<int> curr(target+1 , 0);
+
+        for(int i = 0 ; i<n ; i++) prev[0] = true;
+        
+        if(nums[0] <= target) prev[nums[0]] = true;
+
+        for(int i = 1; i<n ; i++){
+            for(int j = 1 ; j<=target ; j++){
+                bool notPick = prev[j];
+                bool pick = false;
+                if(nums[i] <= j) pick = prev[j-nums[i]];
+
+                curr[j] = pick | notPick;
+            }
+            prev = curr;
+        }
+
+        return prev[target];
+    }
+};
