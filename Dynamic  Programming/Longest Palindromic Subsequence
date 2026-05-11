@@ -1,0 +1,114 @@
+Question:
+Given a string s, find the longest palindromic subsequence's length in s.
+
+A subsequence is a sequence that can be derived from another sequence by deleting some or no elements without changing the order of the remaining elements.
+
+Example 1:
+Input: s = "bbbab"
+Output: 4
+Explanation: One possible longest palindromic subsequence is "bbbb".
+
+Example 2:
+Input: s = "cbbd"
+Output: 2
+Explanation: One possible longest palindromic subsequence is "bb".
+ 
+
+Constraints:
+1 <= s.length <= 1000
+s consists only of lowercase English letters.
+
+
+Code:
+I) Recursive Solution:
+class Solution {
+public:
+    int longest(int i , int j , string s1, string s2){
+        if(i<0 || j<0) return 0;
+        if(s1[i] == s2[j]) return 1 + longest(i-1, j-1 , s1, s2);
+        return max(longest(i-1, j, s1, s2) , longest(i, j-1, s1, s2));
+    }
+    int longestPalindromeSubseq(string s) {
+        string s1 = s;
+        string s2 = string(s.rbegin(), s.rend());
+        int n1 = s1.length();
+        int n2 = s2.length();
+        return longest(n1-1 , n2-1, s1, s2);
+    }
+};
+
+II) Memoization Solution:
+class Solution {
+public:
+    int longest(int i , int j , string &s1, string &s2, vector<vector<int>> &dp){
+        if(i<0 || j<0) return 0;
+        if(dp[i][j] != -1) return dp[i][j] ;
+        if(s1[i] == s2[j]) return 1 + longest(i-1, j-1 , s1, s2, dp);
+        return dp[i][j] = max(longest(i-1, j, s1, s2, dp) , longest(i, j-1, s1, s2, dp));
+    }
+    int longestPalindromeSubseq(string s) {
+        string s1 = s;
+        string s2 = string(s.rbegin(), s.rend());
+        int n1 = s1.length();
+        int n2 = s2.length();
+        vector<vector<int>> dp(n1, vector<int>(n2, -1));
+        return longest(n1-1 , n2-1, s1, s2, dp);
+    }
+};
+
+
+III) Tabulation Solution:
+class Solution {
+public:
+    int longestPalindromeSubseq(string s) {
+        string s1 = s;
+        string s2 = string(s.rbegin(), s.rend());
+        int n1 = s1.length();
+        int n2 = s2.length();
+        vector<vector<int>> dp(n1 + 1, vector<int>(n2 + 1, 0));
+
+        for (int i = 0; i <= n1; i++)
+            dp[i][0] = 0;
+        for (int j = 0; j <= n2; j++)
+            dp[0][j] = 0;
+
+        for (int i = 1; i <= n1; i++) {
+            for (int j = 1; j <= n2; j++) {
+                if (s1[i-1] == s2[j-1])
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                else {
+                   dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+
+        return dp[n1][n2];
+    }
+};
+
+
+IV) Space Optimized Solution:
+class Solution {
+public:
+    int longestPalindromeSubseq(string s) {
+        string s1 = s;
+        string s2 = string(s.rbegin(), s.rend());
+        int n1 = s1.length();
+        int n2 = s2.length();
+        vector<int> prev(n2+1, 0);
+        vector<int> curr(n2+1, 0);
+
+        for (int i = 1; i <= n1; i++) {
+            for (int j = 1; j <= n2; j++) {
+                if (s1[i-1] == s2[j-1])
+                    curr[j] = 1 + prev[j - 1];
+                else {
+                   curr[j] = max(prev[j], curr[j - 1]);
+                }
+            }
+            prev =curr;
+        }
+
+        return prev[n2];
+    }
+};
